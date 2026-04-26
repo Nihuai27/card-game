@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+  
+  <!-- 吟游诗人 - 音乐魔法师 -->
+  <!-- 羽毛帽 -->
+  <rect x="40" y="10" width="20" height="10" fill="#4169e1"/>
+  <rect x="38" y="14" width="4" height="6" fill="#4169e1"/>
+  <rect x="58" y="14" width="4" height="6" fill="#4169e1"/>
+  <rect x="36" y="8" width="4" height="8" fill="#ff0000"/>
+  <rect x="60" y="8" width="4" height="8" fill="#ff0000"/>
+  
+  <!-- 头发 -->
+  <rect x="40" y="18" width="20" height="6" fill="#ffd700"/>
+  
+  <!-- 脸部 -->
+  <rect x="42" y="24" width="16" height="12" fill="#fdbf60"/>
+  <rect x="45" y="28" width="3" height="3" fill="#333"/>
+  <rect x="52" y="28" width="3" height="3" fill="#333"/>
+  <rect x="47" y="32" width="6" height="2" fill="#ff0000"/>
+  
+  <!-- 身体/华丽服装 -->
+  <rect x="36" y="36" width="28" height="22" fill="#ff69b4"/>
+  <rect x="40" y="40" width="20" height="14" fill="#ffd700"/>
+  
+  <!-- 音符装饰 -->
+  <rect x="44" y="42" width="2" height="4" fill="#ff0000"/>
+  <rect x="48" y="44" width="2" height="4" fill="#0000ff"/>
+  <rect x="52" y="42" width="2" height="4" fill="#00ff00"/>
+  <rect x="46" y="48" width="8" height="2" fill="#ff69b4"/>
+  
+  <!-- 鲁特琴 -->
+  <rect x="16" y="40" width="12" height="16" fill="#8b4513"/>
+  <rect x="18" y="42" width="8" height="12" fill="#d2691e"/>
+  <rect x="20" y="44" width="2" height="8" fill="#c0c0c0"/>
+  <rect x="24" y="44" width="2" height="8" fill="#c0c0c0"/>
+  
+  <!-- 音符效果 -->
+  <rect x="10" y="32" width="4" height="4" fill="#ff69b4" opacity="0.8"/>
+  <rect x="14" y="28" width="2" height="2" fill="#ffd700" opacity="0.8"/>
+  <rect x="84" y="34" width="4" height="4" fill="#00bfff" opacity="0.8"/>
+  <rect x="88" y="30" width="2" height="2" fill="#ff69b4" opacity="0.8"/>
+  <rect x="12" y="64" width="2" height="2" fill="#ffd700" opacity="0.8"/>
+  <rect x="86" y="68" width="4" height="4" fill="#00ff00" opacity="0.8"/>
+  <rect x="8" y="48" width="3" height="3" fill="#ff1493" opacity="0.7"/>
+  <rect x="90" y="52" width="3" height="3" fill="#ffd700" opacity="0.7"/>
+  
+  <!-- 腿部 -->
+  <rect x="40" y="58" width="8" height="22" fill="#4169e1"/>
+  <rect x="52" y="58" width="8" height="22" fill="#4169e1"/>
+  
+  <!-- 鞋子 -->
+  <rect x="38" y="76" width="12" height="10" fill="#8b4513"/>
+  <rect x="50" y="76" width="12" height="10" fill="#8b4513"/>
+</svg>

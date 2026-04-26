@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+
+  <!-- 圣殿骑士 - 骑马的高贵骑士 -->
+  <!-- 马身 -->
+  <ellipse cx="55" cy="65" rx="22" ry="15" fill="#8b4513"/>
+  <ellipse cx="55" cy="65" rx="17" ry="11" fill="#a0522d"/>
+
+  <!-- 马腿 -->
+  <rect x="42" y="75" width="6" height="15" fill="#8b4513"/>
+  <rect x="52" y="75" width="6" height="15" fill="#8b4513"/>
+  <rect x="62" y="75" width="6" height="15" fill="#8b4513"/>
+
+  <!-- 马头 -->
+  <ellipse cx="75" cy="50" rx="12" ry="10" fill="#8b4513"/>
+  <ellipse cx="75" cy="50" rx="8" ry="7" fill="#a0522d"/>
+
+  <!-- 马耳 -->
+  <polygon points="68,42 65,32 72,40" fill="#8b4513"/>
+  <polygon points="82,42 85,32 78,40" fill="#8b4513"/>
+
+  <!-- 马眼 -->
+  <rect x="72" y="48" width="3" height="3" fill="#000"/>
+  <rect x="73" y="49" width="1" height="1" fill="#fff"/>
+
+  <!-- 马鬃 -->
+  <rect x="65" y="38" width="8" height="6" fill="#f5f5dc"/>
+  <rect x="68" y="36" width="6" height="4" fill="#fff"/>
+
+  <!-- 骑士身体 -->
+  <rect x="25" y="45" width="20" height="25" fill="#8b0000"/>
+  <rect x="28" y="50" width="14" height="18" fill="#a52a2a"/>
+
+  <!-- 骑士头部 -->
+  <rect x="28" y="28" width="14" height="20" fill="#fdbf60"/>
+  <rect x="30" y="32" width="10" height="14" fill="#ffe4c4"/>
+
+  <!-- 眼睛 -->
+  <rect x="32" y="36" width="3" height="3" fill="#000"/>
+  <rect x="38" y="36" width="3" height="3" fill="#000"/>
+  <rect x="33" y="37" width="1" height="1" fill="#fff"/>
+  <rect x="39" y="37" width="1" height="1" fill="#fff"/>
+
+  <!-- 头盔/兜帽 -->
+  <rect x="26" y="25" width="18" height="10" fill="#8b0000"/>
+  <rect x="28" y="28" width="14" height="6" fill="#a52a2a"/>
+
+  <!-- 权杖 -->
+  <rect x="15" y="35" width="4" height="45" fill="#8b4513"/>
+  <rect x="12" y="30" width="10" height="10" fill="#ffd700"/>
+  <rect x="14" y="32" width="6" height="6" fill="#ffff00"/>
+  <rect x="16" y="25" width="2" height="8" fill="#ffd700"/>
+
+  <!-- 披风 -->
+  <rect x="20" y="50" width="8" height="25" fill="#8b0000"/>
+
+  <!-- 手臂 -->
+  <rect x="18" y="55" width="10" height="8" fill="#fdbf60"/>
+
+  <!-- 十字徽章 -->
+  <rect x="33" y="58" width="4" height="10" fill="#ffd700"/>
+  <rect x="30" y="61" width="10" height="4" fill="#ffd700"/>
+</svg>

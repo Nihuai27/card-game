@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+  
+  <!-- 狼人 - 月圆之夜的噩梦 -->
+  <!-- 身体 -->
+  <rect x="32" y="45" width="36" height="35" fill="#4a4a4a"/>
+  <rect x="36" y="50" width="28" height="25" fill="#696969"/>
+  
+  <!-- 头部 -->
+  <rect x="36" y="22" width="28" height="28" fill="#4a4a4a"/>
+  <rect x="38" y="25" width="24" height="22" fill="#696969"/>
+  
+  <!-- 耳朵 -->
+  <polygon points="38,24 32,10 44,22" fill="#4a4a4a"/>
+  <polygon points="62,24 68,10 56,22" fill="#4a4a4a"/>
+  
+  <!-- 眼睛 - 黄色发光 -->
+  <rect x="42" y="32" width="5" height="5" fill="#ffff00"/>
+  <rect x="53" y="32" width="5" height="5" fill="#ffff00"/>
+  <rect x="44" y="33" width="2" height="2" fill="#ff0000"/>
+  <rect x="55" y="33" width="2" height="2" fill="#ff0000"/>
+  
+  <!-- 鼻子 -->
+  <rect x="47" y="40" width="6" height="4" fill="#000"/>
+  
+  <!-- 獠牙 -->
+  <rect x="43" y="44" width="3" height="6" fill="#fff"/>
+  <rect x="54" y="44" width="3" height="6" fill="#fff"/>
+  
+  <!-- 爪子 -->
+  <rect x="22" y="55" width="12" height="10" fill="#4a4a4a"/>
+  <rect x="66" y="55" width="12" height="10" fill="#4a4a4a"/>
+  <rect x="20" y="58" width="4" height="6" fill="#000"/>
+  <rect x="76" y="58" width="4" height="6" fill="#000"/>
+  
+  <!-- 腿部 -->
+  <rect x="36" y="78" width="10" height="18" fill="#4a4a4a"/>
+  <rect x="54" y="78" width="10" height="18" fill="#4a4a4a"/>
+  
+  <!-- 狼爪 -->
+  <rect x="34" y="93" width="14" height="6" fill="#000"/>
+  <rect x="52" y="93" width="14" height="6" fill="#000"/>
+  
+  <!-- 尾巴 -->
+  <path d="M68 75 Q85 70 90 60" fill="none" stroke="#4a4a4a" stroke-width="5"/>
+</svg>

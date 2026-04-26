@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DND英雄卡牌战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 登录界面 -->
+    <div id="loginScreen" class="screen">
+        <div class="login-container">
+            <h1 class="game-title">🎲 DND英雄卡牌战 🎲</h1>
+            <div class="login-form">
+                <div class="input-group">
+                    <label for="username">冒险者名称</label>
+                    <input type="text" id="username" placeholder="请输入你的名字" maxlength="12">
+                </div>
+                <button class="pixel-btn login-btn" onclick="login()">🗡️ 开始冒险</button>
+            </div>
+            <p class="login-hint">输入你的名字，开启传奇之旅...</p>
+        </div>
+    </div>
+
+    <!-- 密钥验证界面 -->
+    <div id="keyScreen" class="screen hidden">
+        <div class="key-container">
+            <h1 class="game-title">🔐 管理员验证</h1>
+            <div class="key-form">
+                <div class="input-group">
+                    <label for="secretKey">请输入密钥</label>
+                    <input type="password" id="secretKey" placeholder="请输入6位密钥" maxlength="6">
+                </div>
+                <button class="pixel-btn key-btn" onclick="verifyKey()">✅ 验证</button>
+                <button class="pixel-btn back-btn" onclick="backToLogin()">⬅️ 返回</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开始界面 - 英雄选择 -->
+    <div id="startScreen" class="screen hidden">
+        <div class="hero-select-container">
+            <h1 class="game-title">🎲 DND英雄卡牌战 🎲</h1>
+            <p class="subtitle">欢迎，<span id="playerNameDisplay">冒险者</span>！点击英雄选择你的冒险伙伴！</p>
+            <div class="hero-map-container">
+                <img src="photo/back.png" alt="英雄营地" class="hero-map-bg">
+                <!-- 可点击的英雄区域 -->
+                <div class="hero-spot" data-hero="warrior" style="left: 12%; top: 68%;" onclick="selectHeroById('warrior')">
+                    <div class="hero-spot-marker">⚔️</div>
+                    <div class="hero-spot-label">战士</div>
+                </div>
+                <div class="hero-spot" data-hero="paladin" style="left: 32%; top: 35%;" onclick="selectHeroById('paladin')">
+                    <div class="hero-spot-marker">🛡️</div>
+                    <div class="hero-spot-label">圣骑士</div>
+                </div>
+                <div class="hero-spot" data-hero="mage" style="left: 50%; top: 18%;" onclick="selectHeroById('mage')">
+                    <div class="hero-spot-marker">🔮</div>
+                    <div class="hero-spot-label">法师</div>
+                </div>
+                <div class="hero-spot" data-hero="cleric" style="left: 68%; top: 42%;" onclick="selectHeroById('cleric')">
+                    <div class="hero-spot-marker">✨</div>
+                    <div class="hero-spot-label">牧师</div>
+                </div>
+                <div class="hero-spot" data-hero="ranger" style="left: 8%; top: 32%;" onclick="selectHeroById('ranger')">
+                    <div class="hero-spot-marker">🏹</div>
+                    <div class="hero-spot-label">游侠</div>
+                </div>
+                <div class="hero-spot" data-hero="bard" style="left: 28%; top: 62%;" onclick="selectHeroById('bard')">
+                    <div class="hero-spot-marker">🎵</div>
+                    <div class="hero-spot-label">吟游诗人</div>
+                </div>
+                <div class="hero-spot" data-hero="druid" style="left: 52%; top: 55%;" onclick="selectHeroById('druid')">
+                    <div class="hero-spot-marker">🐻</div>
+                    <div class="hero-spot-label">德鲁伊</div>
+                </div>
+                <div class="hero-spot" data-hero="monk" style="left: 75%; top: 70%;" onclick="selectHeroById('monk')">
+                    <div class="hero-spot-marker">👊</div>
+                    <div class="hero-spot-label">武僧</div>
+                </div>
+                <div class="hero-spot" data-hero="cavalier" style="left: 85%; top: 25%;" onclick="selectHeroById('cavalier')">
+                    <div class="hero-spot-marker">🐴</div>
+                    <div class="hero-spot-label">圣殿骑士</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 英雄详情弹窗 -->
+    <div id="heroDetailModal" class="hero-modal hidden">
+        <div class="hero-modal-content">
+            <button class="modal-close" onclick="closeHeroModal()">✕</button>
+            <div class="hero-detail-image" id="modalHeroImage"></div>
+            <div class="hero-detail-info">
+                <h2 id="modalHeroName">英雄名称</h2>
+                <p id="modalHeroDesc">英雄描述</p>
+                <div class="hero-skills-preview" id="modalHeroSkills"></div>
+                <button class="pixel-btn confirm-select-btn" onclick="confirmHeroSelect()">✅ 选择此英雄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 战斗开始动画界面 -->
+    <div id="battleStartScreen" class="screen hidden">
+        <div class="battle-start-container">
+            <div class="battle-start-hero" id="startHero"></div>
+            <div class="battle-start-vs">VS</div>
+            <div class="battle-start-enemy" id="startEnemy"></div>
+            <div class="battle-start-text" id="startBattleText">战斗开始！</div>
+            <div class="battle-start-dialogue" id="battleDialogue">
+                <div class="dialogue-hero" id="heroDialogue"></div>
+                <div class="dialogue-enemy" id="enemyDialogue"></div>
+            </div>
+            <div class="battle-story-intro" id="battleStoryIntro"></div>
+        </div>
+    </div>
+
+    <!-- 游戏主界面 -->
+    <div id="gameScreen" class="screen hidden">
+        <div class="game-container">
+            <!-- 顶部信息栏 -->
+            <div class="top-bar">
+                <div class="chapter-info" id="chapterInfo">第 1 章</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0/10</span>
+                </div>
+                <div class="turn-info" id="turnInfo">你的回合</div>
+                <button class="pixel-btn" onclick="resetGame()">🏠 返回主页</button>
+            </div>
+
+            <!-- 主要内容区域 - 横向排版 -->
+            <div class="main-content">
+                <!-- 左侧：英雄 -->
+                <div class="hero-section">
+                    <div class="character-card" id="heroCard">
+                        <div class="character-avatar" id="heroAvatar"></div>
+                        <div class="character-name" id="heroName">英雄</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="heroHpBar"></div>
+                            <span class="hp-text" id="heroHpText">100/100</span>
+                        </div>
+                        <!-- 能量条 -->
+                        <div class="energy-bar-container">
+                            <div class="energy-label">⚡ 能量</div>
+                            <div class="energy-bar" id="energyBar">
+                                <div class="energy-slot"></div>
+                                <div class="energy-slot"></div>
+                                <div class="energy-slot"></div>
+                            </div>
+                            <div class="energy-text" id="energyText">2/3</div>
+                        </div>
+                        <div class="character-stats">
+                            <div class="stat">❤️ <span id="heroHp">100</span></div>
+                            <div class="stat">🛡️ <span id="heroBlock">0</span></div>
+                            <div class="stat">💰 <span id="heroGold">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 中间：VS和行动预览 -->
+                <div class="center-section">
+                    <div class="vs-text">VS</div>
+                    <div class="action-preview" id="actionPreview"></div>
+                </div>
+
+                <!-- 右侧：怪物 -->
+                <div class="enemy-section">
+                    <div class="character-card enemy" id="enemyCard">
+                        <div class="character-avatar" id="enemyAvatar">👹</div>
+                        <div class="character-name" id="enemyName">哥布林</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill enemy-hp" id="enemyHpBar"></div>
+                            <span class="hp-text" id="enemyHpText">50/50</span>
+                        </div>
+                        <div class="character-stats">
+                            <div class="stat">❤️ <span id="enemyHp">50</span></div>
+                            <div class="stat">⚔️ <span id="enemyAtk">10</span></div>
+                        </div>
+                        <div class="enemy-intent" id="enemyIntent">准备攻击！</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部操作模块 - 包含战斗记录、技能、卡牌 -->
+            <div class="action-module">
+                <!-- 战斗日志 -->
+                <div class="module-section battle-log-section">
+                    <div class="module-title">📜 战斗记录</div>
+                    <div class="log-content" id="logContent">
+                        <div class="log-entry">战斗开始！</div>
+                    </div>
+                </div>
+
+                <!-- 技能栏 -->
+                <div class="module-section skills-section">
+                    <div class="module-title">⚡ 英雄技能</div>
+                    <div class="skills-row" id="skillsRow">
+                        <!-- 技能动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 卡牌选项 -->
+                <div class="module-section cards-section">
+                    <div class="module-title">🎴 基础卡牌</div>
+                    <div class="cards-row" id="cardsRow">
+                        <!-- 卡牌选项动态生成 -->
+                    </div>
+                    <div class="action-buttons">
+                        <button class="pixel-btn confirm-btn" id="confirmBtn" onclick="confirmAction()" disabled>✅ 确认</button>
+                        <button class="pixel-btn flee-btn" id="fleeBtn" onclick="fleeBattle()">🏃 逃跑</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 关卡结算界面 -->
+    <div id="levelCompleteScreen" class="screen hidden">
+        <div class="level-complete-container">
+            <h2 class="level-complete-title" id="levelCompleteTitle">🎉 战斗胜利！</h2>
+            <div class="level-complete-stats" id="levelCompleteStats"></div>
+            <div class="level-rewards" id="levelRewards">
+                <h3>🎁 战斗奖励</h3>
+                <div class="reward-item">❤️ 生命恢复 15 点</div>
+            </div>
+            <button class="pixel-btn" id="nextLevelBtn">⚔️ 继续战斗</button>
+        </div>
+    </div>
+
+    <!-- 随机事件界面 -->
+    <div id="eventScreen" class="screen hidden">
+        <div class="event-container" id="eventContainer">
+            <div class="event-header">
+                <div class="event-type-badge" id="eventTypeBadge">🎲 随机事件</div>
+                <h2 class="event-title" id="eventTitle">事件名称</h2>
+            </div>
+            <div class="event-content" id="eventContent">
+                <div class="event-story" id="eventStory">
+                    <div class="event-icon-large" id="eventIcon">❓</div>
+                    <div class="event-desc" id="eventDesc">事件描述</div>
+                </div>
+                <div class="event-choices" id="eventChoices">
+                    <div class="choice-card" id="choiceCard1" onclick="handleAIEventChoice(1)">
+                        <div class="choice-number">A</div>
+                        <div class="choice-text" id="choiceText1">选项1</div>
+                    </div>
+                    <div class="choice-divider">或</div>
+                    <div class="choice-card" id="choiceCard2" onclick="handleAIEventChoice(2)">
+                        <div class="choice-number">B</div>
+                        <div class="choice-text" id="choiceText2">选项2</div>
+                    </div>
+                </div>
+                <div class="event-result hidden" id="eventResult">
+                    <div class="result-title">📜 结果</div>
+                    <div class="result-text" id="resultText"></div>
+                    <button class="pixel-btn result-btn" id="continueBtn" onclick="closeAIEvent()">⚔️ 继续冒险</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载界面 -->
+    <div id="loadingScreen" class="screen hidden">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text" id="loadingText">加载中...</div>
+        </div>
+    </div>
+
+    <!-- 事件结果窗口 -->
+    <div id="eventResultScreen" class="screen hidden">
+        <div class="event-result-container">
+            <div class="event-result-header">
+                <div class="event-result-icon">📜</div>
+                <h2 class="event-result-title">事件结果</h2>
+            </div>
+            <div class="event-result-content">
+                <div class="event-result-text" id="eventResultText"></div>
+                <div class="event-result-effects" id="eventResultEffects"></div>
+            </div>
+            <button class="pixel-btn event-result-btn" onclick="closeEventResultAndContinue()">⚔️ 继续冒险</button>
+        </div>
+    </div>
+
+    <!-- 商店界面 -->
+    <div id="shopScreen" class="screen hidden">
+        <div class="shop-container">
+            <h2 class="shop-title">🏪 冒险者商店</h2>
+            <div class="shop-gold">💰 金币: <span id="shopGold">0</span></div>
+            <div class="shop-items" id="shopItems"></div>
+            <button class="pixel-btn" onclick="closeShop()">⚔️ 继续冒险</button>
+        </div>
+    </div>
+
+    <!-- 章节完成界面 -->
+    <div id="chapterCompleteScreen" class="screen hidden">
+        <div class="chapter-complete-container">
+            <h2 class="chapter-complete-title">👑 章节完成！</h2>
+            <div class="chapter-complete-stats" id="chapterCompleteStats"></div>
+            <div class="chapter-rewards">
+                <h3>🎁 章节奖励</h3>
+                <div class="reward-item">❤️ 大量生命恢复 50 点</div>
+                <div class="reward-item">✨ 进入下一章节</div>
+            </div>
+            <button class="pixel-btn" onclick="goToNextChapter()">⚔️ 下一章</button>
+        </div>
+    </div>
+
+    <!-- 最终胜利界面 -->
+    <div id="finalVictoryScreen" class="screen hidden">
+        <div class="final-victory-container">
+            <h2 class="final-victory-title">🏆 传奇胜利！</h2>
+            <p class="final-victory-message">你击败了所有敌人，完成了史诗般的冒险！</p>
+            <div class="final-victory-stats" id="finalVictoryStats"></div>
+            <div class="final-story-ending" id="finalStoryEnding"></div>
+            <div class="final-rewards">
+                <h3>🎖️ 最终奖励</h3>
+                <div class="reward-item">👑 传说英雄称号</div>
+                <div class="reward-item">💎 无尽荣耀</div>
+            </div>
+            <button class="pixel-btn" onclick="resetGame()">🔄 再次挑战</button>
+        </div>
+    </div>
+
+    <!-- 游戏结束界面 -->
+    <div id="endScreen" class="screen hidden">
+        <div class="end-container">
+            <h2 class="end-title" id="endTitle">游戏结束</h2>
+            <p class="end-message" id="endMessage"></p>
+            <div class="end-stats" id="endStats"></div>
+            <button class="pixel-btn" onclick="resetGame()">🔄 再玩一次</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

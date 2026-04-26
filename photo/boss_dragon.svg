@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+
+  <!-- 暗影巨龙 - 来自深渊的巨龙！ -->
+  <!-- 身体 -->
+  <ellipse cx="50" cy="60" rx="30" ry="25" fill="#2d0050"/>
+  <ellipse cx="50" cy="60" rx="22" ry="18" fill="#4a0080"/>
+
+  <!-- 腹部鳞片 -->
+  <rect x="42" y="55" width="16" height="12" fill="#6a00a0"/>
+  <rect x="45" y="58" width="4" height="4" fill="#9400d3"/>
+  <rect x="51" y="58" width="4" height="4" fill="#9400d3"/>
+
+  <!-- 头部 -->
+  <ellipse cx="50" cy="32" rx="18" ry="16" fill="#2d0050"/>
+  <ellipse cx="50" cy="32" rx="13" ry="12" fill="#4a0080"/>
+
+  <!-- 角 -->
+  <polygon points="38,22 32,5 42,20" fill="#1a0030"/>
+  <polygon points="62,22 68,5 58,20" fill="#1a0030"/>
+
+  <!-- 眼睛 - 燃烧的红 -->
+  <rect x="42" y="28" width="6" height="6" fill="#ff0000"/>
+  <rect x="52" y="28" width="6" height="6" fill="#ff0000"/>
+  <rect x="44" y="29" width="3" height="3" fill="#ffff00"/>
+  <rect x="54" y="29" width="3" height="3" fill="#ffff00"/>
+
+  <!-- 鼻孔 -->
+  <rect x="47" y="38" width="2" height="3" fill="#000"/>
+  <rect x="51" y="38" width="2" height="3" fill="#000"/>
+
+  <!-- 翅膀 - 左翼 -->
+  <path d="M32 50 Q8 35 5 15 Q15 40 32 55" fill="#1a0030"/>
+  <path d="M30 52 Q12 42 10 25 Q18 45 30 58" fill="#2d0050"/>
+
+  <!-- 翅膀 - 右翼 -->
+  <path d="M68 50 Q92 35 95 15 Q85 40 68 55" fill="#1a0030"/>
+  <path d="M70 52 Q88 42 90 25 Q82 45 70 58" fill="#2d0050"/>
+
+  <!-- 火焰效果 -->
+  <rect x="45" y="42" width="4" height="8" fill="#ff4500" opacity="0.8"/>
+  <rect x="51" y="42" width="4" height="8" fill="#ff4500" opacity="0.8"/>
+  <rect x="46" y="48" width="2" height="4" fill="#ffff00" opacity="0.9"/>
+  <rect x="52" y="48" width="2" height="4" fill="#ffff00" opacity="0.9"/>
+
+  <!-- 尾巴 -->
+  <path d="M80 65 Q95 60 98 45" fill="none" stroke="#2d0050" stroke-width="6"/>
+  <path d="M82 67 Q92 62 95 50" fill="none" stroke="#4a0080" stroke-width="4"/>
+
+  <!-- 腿部 -->
+  <rect x="35" y="82" width="10" height="12" fill="#2d0050"/>
+  <rect x="55" y="82" width="10" height="12" fill="#2d0050"/>
+
+  <!-- 龙爪 -->
+  <rect x="33" y="92" width="14" height="6" fill="#1a0030"/>
+  <rect x="53" y="92" width="14" height="6" fill="#1a0030"/>
+</svg>

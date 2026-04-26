@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+  
+  <!-- 牧师 - 神圣治疗者 -->
+  <!-- 神圣光环 -->
+  <ellipse cx="50" cy="14" rx="18" ry="5" fill="none" stroke="#ffd700" stroke-width="1" opacity="0.5"/>
+  
+  <!-- 头巾 -->
+  <rect x="40" y="10" width="20" height="10" fill="#ffffff"/>
+  <rect x="38" y="14" width="4" height="6" fill="#ffffff"/>
+  <rect x="58" y="14" width="4" height="6" fill="#ffffff"/>
+  <rect x="48" y="8" width="4" height="6" fill="#ffd700"/>
+  
+  <!-- 脸部 -->
+  <rect x="42" y="22" width="16" height="12" fill="#fdbf60"/>
+  <rect x="45" y="26" width="3" height="3" fill="#333"/>
+  <rect x="52" y="26" width="3" height="3" fill="#333"/>
+  <rect x="47" y="30" width="6" height="2" fill="#8b4513"/>
+  
+  <!-- 身体/板甲 -->
+  <rect x="34" y="34" width="32" height="24" fill="#c0c0c0"/>
+  <rect x="38" y="38" width="24" height="16" fill="#e8e8e8"/>
+  
+  <!-- 神圣符号 -->
+  <rect x="48" y="42" width="4" height="8" fill="#ffd700"/>
+  <rect x="45" y="45" width="10" height="2" fill="#ffd700"/>
+  
+  <!-- 袖子 -->
+  <rect x="26" y="38" width="10" height="18" fill="#c0c0c0"/>
+  <rect x="64" y="38" width="10" height="18" fill="#c0c0c0"/>
+  
+  <!-- 战锤 -->
+  <rect x="18" y="32" width="4" height="32" fill="#8b4513"/>
+  <rect x="14" y="28" width="12" height="8" fill="#c0c0c0"/>
+  <rect x="16" y="30" width="8" height="4" fill="#ffd700"/>
+  
+  <!-- 圣徽/盾牌 -->
+  <rect x="72" y="40" width="12" height="16" fill="#ffd700"/>
+  <rect x="74" y="42" width="8" height="12" fill="#ffffff"/>
+  <rect x="77" y="46" width="2" height="4" fill="#ff0000"/>
+  
+  <!-- 治疗光环 -->
+  <rect x="12" y="24" width="4" height="4" fill="#00ff00" opacity="0.6"/>
+  <rect x="84" y="30" width="3" height="3" fill="#00ff00" opacity="0.6"/>
+  <rect x="14" y="68" width="3" height="3" fill="#00ff00" opacity="0.6"/>
+  <rect x="82" y="72" width="4" height="4" fill="#00ff00" opacity="0.6"/>
+  
+  <!-- 腿部 -->
+  <rect x="40" y="58" width="8" height="22" fill="#c0c0c0"/>
+  <rect x="52" y="58" width="8" height="22" fill="#c0c0c0"/>
+  
+  <!-- 靴子 -->
+  <rect x="38" y="76" width="12" height="10" fill="#2f2f2f"/>
+  <rect x="50" y="76" width="12" height="10" fill="#2f2f2f"/>
+</svg>

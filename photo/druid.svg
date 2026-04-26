@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" shape-rendering="crispEdges">
+  <!-- 背景 -->
+  <rect width="100" height="100" fill="#1a1a2e"/>
+  
+  <!-- 德鲁伊 - 自然变形者 -->
+  <!-- 鹿角头饰 -->
+  <rect x="46" y="6" width="8" height="8" fill="#8b4513"/>
+  <rect x="40" y="4" width="4" height="8" fill="#8b4513"/>
+  <rect x="56" y="4" width="4" height="8" fill="#8b4513"/>
+  <rect x="36" y="2" width="4" height="6" fill="#8b4513"/>
+  <rect x="60" y="2" width="4" height="6" fill="#8b4513"/>
+  
+  <!-- 头发 -->
+  <rect x="42" y="12" width="16" height="8" fill="#228b22"/>
+  
+  <!-- 脸部 -->
+  <rect x="44" y="18" width="12" height="10" fill="#fdbf60"/>
+  <rect x="46" y="22" width="2" height="2" fill="#228b22"/>
+  <rect x="52" y="22" width="2" height="2" fill="#228b22"/>
+  <rect x="48" y="26" width="4" height="2" fill="#8b4513"/>
+  
+  <!-- 身体/皮袍 -->
+  <rect x="38" y="28" width="24" height="22" fill="#8fbc8f"/>
+  <rect x="42" y="32" width="16" height="14" fill="#228b22"/>
+  
+  <!-- 树叶装饰 -->
+  <rect x="40" y="30" width="4" height="4" fill="#32cd32"/>
+  <rect x="56" y="30" width="4" height="4" fill="#32cd32"/>
+  <rect x="48" y="36" width="4" height="4" fill="#32cd32"/>
+  <rect x="36" y="34" width="3" height="3" fill="#228b22"/>
+  <rect x="61" y="34" width="3" height="3" fill="#228b22"/>
+  
+  <!-- 自然法杖 -->
+  <rect x="18" y="26" width="3" height="36" fill="#8b4513"/>
+  <rect x="16" y="22" width="7" height="10" fill="#32cd32"/>
+  <rect x="18" y="24" width="3" height="6" fill="#00ff00"/>
+  
+  <!-- 动物伙伴（小熊） -->
+  <rect x="70" y="52" width="14" height="10" fill="#8b4513"/>
+  <rect x="72" y="48" width="6" height="6" fill="#8b4513"/>
+  <rect x="74" y="50" width="2" height="2" fill="#000"/>
+  
+  <!-- 变形暗示（爪印） -->
+  <rect x="12" y="54" width="4" height="4" fill="#8b4513" opacity="0.7"/>
+  <rect x="10" y="58" width="3" height="3" fill="#8b4513" opacity="0.7"/>
+  <rect x="16" y="58" width="3" height="3" fill="#8b4513" opacity="0.7"/>
+  <rect x="84" y="60" width="4" height="4" fill="#228b22" opacity="0.7"/>
+  
+  <!-- 腿部 -->
+  <rect x="42" y="50" width="6" height="26" fill="#556b2f"/>
+  <rect x="52" y="50" width="6" height="26" fill="#556b2f"/>
+  
+  <!-- 靴子 -->
+  <rect x="40" y="72" width="10" height="10" fill="#8b4513"/>
+  <rect x="50" y="72" width="10" height="10" fill="#8b4513"/>
+</svg>
