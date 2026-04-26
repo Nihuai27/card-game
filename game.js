@@ -18,8 +18,25 @@ const gameState = {
     skillCost: 3,        // 技能消耗能量
     gold: 0,             // 金币
     equipment: [],       // 装备
-    apiKey: 'sk-977fb639cff34f30958fa71669e05953'  // 阿里通义千问 API Key
+    apiKey: ''           // API Key 将在初始化时获取
 };
+
+// 获取 API Key 的函数
+function getApiKey() {
+    // 优先从 window.ENV 获取（config.js）
+    if (typeof window !== 'undefined' && window.ENV && window.ENV.API_KEY) {
+        return window.ENV.API_KEY;
+    }
+    // 其次从环境变量获取（Vercel）
+    if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_KEY) {
+        return process.env.REACT_APP_API_KEY;
+    }
+    return '';
+}
+
+// 初始化 API Key
+gameState.apiKey = getApiKey();
+console.log('API Key 已加载:', gameState.apiKey ? '已设置' : '未设置');
 
 // 英雄图片映射 - 根据实际图片内容重新分配
 const HERO_IMAGE_MAP = {
@@ -437,6 +454,12 @@ async function selectHero(hero) {
     const battleImage = hero.battleImage || hero.avatar;
     document.getElementById('heroAvatar').innerHTML = `<img src="${battleImage}" alt="${hero.name}">`;
     document.getElementById('heroName').textContent = hero.name;
+    
+    // 显示管理员关卡跳转（如果是admin）
+    const adminLevelJump = document.getElementById('adminLevelJump');
+    if (isAdminMode && adminLevelJump) {
+        adminLevelJump.classList.remove('hidden');
+    }
     
     await startBattle();
     
@@ -2001,7 +2024,7 @@ function closeAIEvent() {
 // 当前商店显示的装备
 let currentShopItems = [];
 
-// 显示商店
+// 显示商店（普通商店，用于随机事件）
 function showShop() {
     const shopScreen = document.getElementById('shopScreen');
     const shopGold = document.getElementById('shopGold');
@@ -2215,11 +2238,172 @@ function showChapterComplete() {
 // 进入下一章
 function goToNextChapter() {
     document.getElementById('chapterCompleteScreen').classList.add('hidden');
+    document.getElementById('shopScreen').classList.add('hidden');
     
     gameState.chapter++;
     gameState.monsterCount = 0;
     
     startBattle();
+}
+
+// 管理员关卡跳转
+function jumpToLevel() {
+    if (!isAdminMode) {
+        alert('只有管理员可以使用此功能！');
+        return;
+    }
+    
+    const input = document.getElementById('levelJumpInput').value.trim();
+    const match = input.match(/^(\d+)-(\d+)$/);
+    
+    if (!match) {
+        alert('格式错误！请输入 "章-关" 格式，如：3-5');
+        return;
+    }
+    
+    const chapter = parseInt(match[1]);
+    const level = parseInt(match[2]);
+    
+    // 验证范围 - 只允许 1-1~1-10, 2-1~2-10, 3-1~3-10
+    const validChapters = [1, 2, 3];
+    const validLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    
+    if (!validChapters.includes(chapter) || !validLevels.includes(level)) {
+        alert('输入有误！只能跳转到以下关卡：\n1-1 ~ 1-10\n2-1 ~ 2-10\n3-1 ~ 3-10');
+        return;
+    }
+    
+    // 设置章节和关卡
+    gameState.chapter = chapter;
+    gameState.monsterCount = level - 1; // monsterCount是已击败数，所以减1
+    
+    // 关闭可能打开的弹窗
+    document.getElementById('levelCompleteScreen').classList.add('hidden');
+    document.getElementById('chapterCompleteScreen').classList.add('hidden');
+    document.getElementById('shopScreen').classList.add('hidden');
+    document.getElementById('eventScreen').classList.add('hidden');
+    document.getElementById('eventResultScreen').classList.add('hidden');
+    
+    // 清空输入
+    document.getElementById('levelJumpInput').value = '';
+    
+    // 开始战斗
+    startBattle();
+    
+    addLog(`🔧 管理员跳转至第 ${chapter} 章第 ${level} 关`);
+}
+
+// 显示章节商店（Boss战后）
+function showChapterShop() {
+    const shopScreen = document.getElementById('shopScreen');
+    const shopGold = document.getElementById('shopGold');
+    const shopItems = document.getElementById('shopItems');
+    
+    // 隐藏章节完成界面，显示商店
+    document.getElementById('chapterCompleteScreen').classList.add('hidden');
+    
+    shopGold.textContent = gameState.gold;
+    shopItems.innerHTML = '';
+    
+    // 根据玩家金币数量动态定价
+    // 确保至少能买一件装备（最便宜的装备价格为玩家金币的60-80%）
+    const playerGold = gameState.gold;
+    const minPrice = Math.max(10, Math.floor(playerGold * 0.3));  // 最低价格
+    const maxPrice = Math.max(minPrice + 20, Math.floor(playerGold * 0.9)); // 最高价格
+    
+    // 获取可用装备（未拥有的）
+    const availableItems = SHOP_ITEMS.filter(item => !gameState.equipment.includes(item.id));
+    
+    // 生成3个装备，价格基于玩家金币动态调整
+    currentShopItems = [];
+    
+    // 确保有一个便宜的装备（玩家能买得起）
+    if (availableItems.length > 0) {
+        const cheapItem = { ...availableItems[0] };
+        cheapItem.price = Math.max(10, Math.floor(playerGold * 0.5)); // 50%金币价格
+        currentShopItems.push(cheapItem);
+        
+        // 其他装备随机价格
+        for (let i = 1; i < Math.min(3, availableItems.length); i++) {
+            const item = { ...availableItems[i] };
+            // 随机价格在玩家金币的40%-90%之间
+            const priceRatio = 0.4 + Math.random() * 0.5;
+            item.price = Math.max(15, Math.floor(playerGold * priceRatio));
+            currentShopItems.push(item);
+        }
+    }
+    
+    // 渲染商店物品
+    renderChapterShopItems();
+    
+    shopScreen.classList.remove('hidden');
+}
+
+// 渲染章节商店物品
+function renderChapterShopItems() {
+    const shopItems = document.getElementById('shopItems');
+    const shopGold = document.getElementById('shopGold');
+    
+    shopGold.textContent = gameState.gold;
+    shopItems.innerHTML = '';
+    
+    // 渲染3个装备位置
+    for (let i = 0; i < 3; i++) {
+        const item = currentShopItems[i];
+        const itemDiv = document.createElement('div');
+        
+        if (item && !gameState.equipment.includes(item.id)) {
+            const canAfford = gameState.gold >= item.price;
+            itemDiv.className = 'shop-item' + (canAfford ? '' : ' expensive');
+            itemDiv.onclick = () => buyChapterItem(item, i);
+            itemDiv.innerHTML = `
+                <div class="shop-item-icon">${item.icon}</div>
+                <div class="shop-item-name">${item.name}</div>
+                <div class="shop-item-desc">${item.desc}</div>
+                <div class="shop-item-price ${canAfford ? 'affordable' : 'expensive'}">💰 ${item.price}</div>
+            `;
+        } else {
+            // 空位置或已购买，显示为已售罄
+            itemDiv.className = 'shop-item purchased';
+            itemDiv.innerHTML = `
+                <div class="shop-item-icon">❌</div>
+                <div class="shop-item-name">已售罄</div>
+                <div class="shop-item-desc">-</div>
+                <div class="shop-item-price">-</div>
+            `;
+        }
+        shopItems.appendChild(itemDiv);
+    }
+}
+
+// 购买章节商店装备
+function buyChapterItem(item, slotIndex) {
+    if (gameState.gold < item.price) {
+        addLog(`💰 金币不足！需要 ${item.price} 金币`);
+        return;
+    }
+    
+    if (gameState.equipment.includes(item.id)) {
+        addLog(`⚠️ 已拥有 ${item.name}！`);
+        return;
+    }
+    
+    gameState.gold -= item.price;
+    gameState.equipment.push(item.id);
+    
+    // 应用装备效果
+    applyEquipmentEffect(item);
+    
+    addLog(`🛒 购买成功！获得 ${item.name}`);
+    
+    // 标记该位置为已购买
+    currentShopItems[slotIndex] = null;
+    
+    // 重新渲染商店
+    renderChapterShopItems();
+    updateUI();
+    
+    // 玩家可以继续购买其他装备，或点击下一章按钮离开
 }
 
 // 进入下一关
@@ -2245,7 +2429,10 @@ async function goToNextLevel() {
     }
     
     // 只有满足概率条件且有API Key时才触发事件
-    if (shouldTriggerEvent && gameState.apiKey) {
+    const hasApiKey = gameState.apiKey && gameState.apiKey.length > 0;
+    console.log('是否触发事件:', shouldTriggerEvent, '是否有API Key:', hasApiKey);
+    
+    if (shouldTriggerEvent && hasApiKey) {
         // 显示"请稍后"界面，AI在后台生成事件
         showLoadingScreen('正在生成随机事件...');
         
@@ -2370,6 +2557,12 @@ function resetGame() {
     
     // 重置管理员模式
     isAdminMode = false;
+    
+    // 隐藏管理员关卡跳转框
+    const adminLevelJump = document.getElementById('adminLevelJump');
+    if (adminLevelJump) {
+        adminLevelJump.classList.add('hidden');
+    }
     
     document.getElementById('logContent').innerHTML = '<div class="log-entry">战斗开始！</div>';
     

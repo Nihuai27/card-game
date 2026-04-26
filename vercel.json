@@ -3,7 +3,7 @@
   "name": "card-game",
   "builds": [
     {
-      "src": "index.html",
+      "src": "package.json",
       "use": "@vercel/static"
     }
   ],
@@ -12,5 +12,8 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ]
+  ],
+  "env": {
+    "REACT_APP_API_KEY": "@api-key"
+  }
 }

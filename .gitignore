@@ -1,23 +1,22 @@
-# Dependencies
+# 配置文件（包含敏感信息）
+config.js
+
+# 环境变量文件
+.env
+.env.local
+.env.production
+
+# 依赖
 node_modules/
-package-lock.json
-yarn.lock
 
-# Vercel
-.vercel
+# 构建输出
+.vercel/
+dist/
+build/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
+# 日志
+*.log
 
-# OS
+# 系统文件
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*

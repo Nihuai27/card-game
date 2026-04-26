@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DND英雄卡牌战</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 配置文件（本地开发使用，生产环境使用环境变量） -->
+    <script src="config.js"></script>
 </head>
 <body>
     <!-- 登录界面 -->
@@ -127,6 +129,11 @@
                     <span class="progress-text" id="progressText">0/10</span>
                 </div>
                 <div class="turn-info" id="turnInfo">你的回合</div>
+                <!-- 管理员关卡跳转（仅admin可见） -->
+                <div class="admin-level-jump hidden" id="adminLevelJump">
+                    <input type="text" id="levelJumpInput" placeholder="章-关 (如:3-5)" maxlength="4" style="width:80px;padding:5px;border-radius:5px;border:1px solid #ccc;">
+                    <button class="pixel-btn" onclick="jumpToLevel()" style="padding:5px 10px;font-size:0.8rem;">跳转</button>
+                </div>
                 <button class="pixel-btn" onclick="resetGame()">🏠 返回主页</button>
             </div>
 
@@ -290,7 +297,7 @@
             <h2 class="shop-title">🏪 冒险者商店</h2>
             <div class="shop-gold">💰 金币: <span id="shopGold">0</span></div>
             <div class="shop-items" id="shopItems"></div>
-            <button class="pixel-btn" onclick="closeShop()">⚔️ 继续冒险</button>
+            <button class="pixel-btn" id="shopNextChapterBtn" onclick="goToNextChapter()">➡️ 下一章</button>
         </div>
     </div>
 
@@ -302,9 +309,9 @@
             <div class="chapter-rewards">
                 <h3>🎁 章节奖励</h3>
                 <div class="reward-item">❤️ 大量生命恢复 50 点</div>
-                <div class="reward-item">✨ 进入下一章节</div>
+                <div class="reward-item">🏪 解锁商店购买装备</div>
             </div>
-            <button class="pixel-btn" onclick="goToNextChapter()">⚔️ 下一章</button>
+            <button class="pixel-btn" onclick="showChapterShop()">🏪 进入商店</button>
         </div>
     </div>
 
