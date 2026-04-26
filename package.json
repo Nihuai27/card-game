@@ -1,0 +1,13 @@
+{
+  "name": "dnd-card-game",
+  "version": "1.0.0",
+  "description": "DND英雄卡牌战游戏",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Starting development server'",
+    "build": "echo 'No build needed'"
+  },
+  "keywords": ["game", "dnd", "card-game"],
+  "author": "",
+  "license": "MIT"
+}
