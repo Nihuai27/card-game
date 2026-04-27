@@ -23,21 +23,13 @@ const gameState = {
 
 // 获取 API Key 的函数
 function getApiKey() {
-    // 优先从 window.ENV 获取（config.js）
+    // 从 config.js 获取（生产环境由构建脚本生成）
     if (typeof window !== 'undefined' && window.ENV && window.ENV.API_KEY) {
         return window.ENV.API_KEY;
     }
-    // 其次从环境变量获取（Vercel）
+    // 从环境变量获取（Vercel/Netlify）
     if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_KEY) {
         return process.env.REACT_APP_API_KEY;
-    }
-    // 从 Netlify 环境变量获取（直接注入到window对象）
-    if (typeof window !== 'undefined' && window.API_KEY) {
-        return window.API_KEY;
-    }
-    // 从 Netlify 环境变量获取（通过netlifyEnv对象）
-    if (typeof window !== 'undefined' && window.netlifyEnv && window.netlifyEnv.API_KEY && window.netlifyEnv.API_KEY !== '%API_KEY%') {
-        return window.netlifyEnv.API_KEY;
     }
     return '';
 }
