@@ -2,13 +2,7 @@
   command = "npm run build"
   publish = "."
 
-[env]
-  API_KEY = "${API_KEY}"
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  API_KEY = "${API_KEY}"
