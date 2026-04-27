@@ -6,3 +6,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[context.production.environment]
+  SECRETS_SCAN_OMIT_KEYS = "API_KEY"
