@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "echo 'Starting development server'",
-    "build": "echo 'No build needed'"
+    "build": "node build.js"
   },
   "keywords": ["game", "dnd", "card-game"],
   "author": "",

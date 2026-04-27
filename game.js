@@ -31,6 +31,14 @@ function getApiKey() {
     if (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_KEY) {
         return process.env.REACT_APP_API_KEY;
     }
+    // 从 Netlify 环境变量获取（直接注入到window对象）
+    if (typeof window !== 'undefined' && window.API_KEY) {
+        return window.API_KEY;
+    }
+    // 从 Netlify 环境变量获取（通过netlifyEnv对象）
+    if (typeof window !== 'undefined' && window.netlifyEnv && window.netlifyEnv.API_KEY && window.netlifyEnv.API_KEY !== '%API_KEY%') {
+        return window.netlifyEnv.API_KEY;
+    }
     return '';
 }
 
