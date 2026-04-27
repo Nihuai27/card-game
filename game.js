@@ -696,62 +696,36 @@ function getBattleStory(chapter) {
     return stories[Math.floor(Math.random() * stories.length)];
 }
 
-// 调用阿里通义千问 AI 生成战斗对话
+// 调用 Netlify Function 生成战斗对话
 async function generateAIBattleDialogues(heroName, enemyName, enemyType, chapter) {
-    if (!gameState.apiKey) {
-        return null;
-    }
-    
     try {
-        const prompt = `你是一个DND风格的战斗对话生成器。请为以下战斗生成三句对话：
-1. 英雄${heroName}的战斗宣言（狠话，10-20字）
-2. 怪物${enemyName}的威胁话语（狠话，10-20字）
-3. 战斗场景描述（30-50字）
-
-要求：
-- 风格：暗黑奇幻、史诗感、有张力
-- 英雄要霸气自信
-- 怪物要凶狠恐怖
-- 场景描述要有氛围感
-
-请严格按以下格式输出：
-英雄：[英雄宣言]
-怪物：[怪物威胁]
-场景：[场景描述]`;
-
-        const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+        const response = await fetch('/.netlify/functions/ai-handler', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${gameState.apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'qwen-turbo',
-                messages: [
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                max_tokens: 200,
-                temperature: 0.8
+                action: 'battleDialogue',
+                heroName,
+                enemyName,
+                enemyType,
+                chapter
             })
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error('API 错误:', errorData);
-            throw new Error(`API 请求失败: ${response.status}`);
+            console.error('Netlify Function 错误:', response.status);
+            return null;
         }
 
         const data = await response.json();
-        const content = data.choices?.[0]?.message?.content || '';
-        
+        const content = data.content || '';
+
         // 解析 AI 返回的内容
         const heroMatch = content.match(/英雄[：:]\s*(.+)/);
         const enemyMatch = content.match(/怪物[：:]\s*(.+)/);
         const sceneMatch = content.match(/场景[：:]\s*(.+)/);
-        
+
         return {
             hero: heroMatch ? heroMatch[1].trim() : null,
             enemy: enemyMatch ? enemyMatch[1].trim() : null,
@@ -763,12 +737,8 @@ async function generateAIBattleDialogues(heroName, enemyName, enemyType, chapter
     }
 }
 
-// 调用 AI 生成随机事件
+// 调用 Netlify Function 生成随机事件
 async function generateAIEvent(heroName, chapter) {
-    if (!gameState.apiKey) {
-        return null;
-    }
-    
     // 获取当前游戏状态信息
     const currentHp = gameState.hero ? gameState.hero.hp : 100;
     const maxHp = gameState.hero ? gameState.hero.maxHp : 100;
@@ -776,73 +746,36 @@ async function generateAIEvent(heroName, chapter) {
     const currentEnergy = gameState.energy || 2;
     const maxEnergy = gameState.maxEnergy || 3;
     const enemyName = gameState.enemy ? gameState.enemy.name : '怪物';
-    
+
     try {
-        const prompt = `你是一个DND风格的随机事件生成器。请为${heroName}在第${chapter}章的冒险生成一个随机事件。
-
-当前游戏状态（请根据这些信息生成相关事件）：
-- 英雄生命值：${currentHp}/${maxHp}
-- 金币：${currentGold}
-- 能量：${currentEnergy}/${maxEnergy}
-- 刚刚击败的敌人：${enemyName}
-
-要求：
-1. 事件名称（8-12字，开头带一个emoji）
-2. 事件描述（60-100字，要与当前游戏状态相关，描述场景和处境）
-3. 两个选择选项（每个选项12-20字，要具体明确）
-4. 每个选项的结果描述（40-60字，必须包含具体数值变化）
-
-事件类型参考（结合当前状态）：
-- 如果英雄生命低：治愈之泉、神秘药剂师、休息营地
-- 如果金币多：黑市商人、赌博机会、投资陷阱
-- 如果能量低：能量水晶、冥想圣地、神秘符文
-- 根据章节主题：古代遗迹、神秘洞穴、废弃营地
-
-数值变化规则（必须明确写出）：
-- 生命变化："生命+15"、"生命-10"
-- 金币变化："金币+30"、"金币-20"  
-- 能量变化："能量+1"、"能量恢复满"
-- 最大生命："最大生命+5"
-- 注意：奖励和惩罚要平衡，不要让玩家太容易或太难
-
-请严格按以下格式输出：
-名称：[emoji+事件名称]
-描述：[事件描述]
-选项1：[选项1描述]
-选项2：[选项2描述]
-结果1：[结果1描述，包含具体数值变化]
-结果2：[结果2描述，包含具体数值变化]`;
-
-        const response = await fetch('https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions', {
+        const response = await fetch('/.netlify/functions/ai-handler', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${gameState.apiKey}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'qwen-turbo',
-                messages: [
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
-                max_tokens: 600,
-                temperature: 0.85
+                action: 'randomEvent',
+                heroName,
+                chapter,
+                currentHp,
+                maxHp,
+                currentGold,
+                currentEnergy,
+                maxEnergy,
+                enemyName
             })
         });
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
-            console.error('API 错误:', errorData);
-            throw new Error(`API 请求失败: ${response.status}`);
+            console.error('Netlify Function 错误:', response.status);
+            return generateDefaultEvent();
         }
 
         const data = await response.json();
-        const content = data.choices?.[0]?.message?.content || '';
-        
+        const content = data.content || '';
+
         console.log('AI 生成的事件内容:', content);
-        
+
         // 解析 AI 返回的内容
         const nameMatch = content.match(/名称[：:]\s*(.+)/);
         const descMatch = content.match(/描述[：:]\s*(.+)/);
@@ -850,7 +783,7 @@ async function generateAIEvent(heroName, chapter) {
         const option2Match = content.match(/选项2[：:]\s*(.+)/);
         const result1Match = content.match(/结果1[：:]\s*(.+)/);
         const result2Match = content.match(/结果2[：:]\s*(.+)/);
-        
+
         const event = {
             name: nameMatch ? nameMatch[1].trim() : '✨ 随机遭遇',
             desc: descMatch ? descMatch[1].trim() : '你遇到了一些特别的事情...',
@@ -859,13 +792,13 @@ async function generateAIEvent(heroName, chapter) {
             result1: result1Match ? result1Match[1].trim() : '你做出了选择...',
             result2: result2Match ? result2Match[1].trim() : '你选择了另一条路...'
         };
-        
+
         // 验证解析结果，如果关键字段缺失则返回null
         if (!nameMatch || !descMatch || !option1Match || !option2Match) {
             console.warn('AI 事件解析不完整，使用默认事件');
             return generateDefaultEvent();
         }
-        
+
         return event;
     } catch (error) {
         console.error('AI 事件生成失败:', error);

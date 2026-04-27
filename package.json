@@ -5,7 +5,10 @@
   "main": "index.html",
   "scripts": {
     "start": "echo 'Starting development server'",
-    "build": "node build.js"
+    "build": "npm install --prefix netlify-functions node-fetch@2 && node build.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
   },
   "keywords": ["game", "dnd", "card-game"],
   "author": "",
